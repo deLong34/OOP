@@ -1,18 +1,14 @@
-﻿// 
-
+﻿// Домашнее задание по 1 уроку ООП, Литвинов Дмитрий
 #include <iostream>
 #include <cstdint>
 #include <string>
 
 using namespace std;
-
 ///////////////////==1==////////////////////
-
 class Power
 {
 private:
     float a, b;
-
 public:
     Power()
     {
@@ -24,19 +20,12 @@ public:
         a = _a;
         b = _b;
     }
-
     void calculate()
     {
-       // float c;
-       // c = pow(a, b);
-       // cout << "Результат: " << c << endl;
-       //можно одной строкой:
         cout << "Результат: " << pow(a, b) << endl;
     }
 };
-
 //////////////////==2==//////////////////////
-
 class RGBA
 {
 public:
@@ -47,20 +36,14 @@ public:
         m_blue = _m_blue;
         m_alpha = _m_alpha;
     };
-  
     void print()
     {
         cout << "Выводим значения по 2 заданию: " << m_red << " . " << m_green << " . " << m_blue << " . " << m_alpha << endl;
     }
-
 private:
     uint8_t m_red, m_green, m_blue, m_alpha;
-
-
 };
-
 /////////////////==3==//////////////////////
-
 class Stack
 {
 public:
@@ -79,8 +62,7 @@ public:
             arrA[count] = _num;
             count++;
             return true;
-        }
-        else
+        }  else
         {
             return false;
         }
@@ -90,8 +72,7 @@ public:
         if (count != 0)
         {
             return arrA[count--];
-        }
-        else
+        } else
         {
             cout << "Внимание!!! Стек пустой" << endl;
         }
@@ -105,14 +86,10 @@ public:
         }
         cout << " )" << endl;
     }
-
-
 private:
     int arrA[10];
     int count;
-
 };
-
 
     int main()
     {
@@ -126,15 +103,12 @@ private:
         Stack stack;
         stack.reset();
         stack.print();
-
         stack.push(3);
         stack.push(7);
         stack.push(5);
         stack.print();
-
         stack.pop();
         stack.print();
-
         stack.pop();
         stack.pop();
         stack.print();
