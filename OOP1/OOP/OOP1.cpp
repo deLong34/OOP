@@ -86,7 +86,7 @@ protected:
 	string company, model;
 };
 //Легковая
-class PassengerCar : public Car
+class PassengerCar : virtual public Car
 {
 public:
 	PassengerCar(string _company, string _model) : Car(_company, _model) { cout << __FUNCTION__ << endl; }
@@ -94,7 +94,7 @@ public:
 protected:
 };
 //Автобус
-class Bus : public Car
+class Bus : virtual public Car
 {
 public:
 	Bus(string _company, string _model) : Car(_company, _model) { cout << __FUNCTION__ << endl; }
@@ -140,5 +140,6 @@ int main()
 	Minivan M1("Toyota", "Delica");
 	Bus B1("Ikarus", "Ikar");
 	PassengerCar P1("Volga", "Gas21");
+	return 0;
 
 }
