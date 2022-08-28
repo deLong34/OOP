@@ -82,7 +82,6 @@ class Car
 public:
 	Car(string _company, string _model) : company(_company), model(_model) { cout << __FUNCTION__ << endl; }
 	~Car() {}
-	Car(){}
 protected:
 	string company, model;
 };

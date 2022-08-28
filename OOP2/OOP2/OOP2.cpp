@@ -1,4 +1,4 @@
-﻿// Домашнее задание по 2 уроку ООП на С++, Литвинов Дмитрий
+﻿// Домашнее задание по 3 уроку ООП на С++, Литвинов Дмитрий
 #include <iostream>
 #include <cstdint>
 #include <string>
@@ -81,8 +81,8 @@ class Car
 {
 public:
 	Car(string _company, string _model) : company(_company), model(_model) { cout << __FUNCTION__ << endl; }
+	Car() {}
 	~Car() {}
-	Car(){}
 protected:
 	string company, model;
 };
@@ -113,8 +113,11 @@ private:
 ////////////////--3--/////////////
 class Fraction
 {
+private:
+	double num, den;
+	double res = 1;
 public:
-	Fraction(double _num, double _den) : num(_num), den(_den)
+	Fraction(double _num = 1, double _den = 1) : num(_num), den(_den)
 	{
 		if (den != 0)
 		{
@@ -125,22 +128,73 @@ public:
 			cout << "Делить на 0 нельзя!" << endl;
 		}
 	}
-private:
-	double num, den;
-	double res;
+	void show() {
+		cout << "Наша дробь: " << num << " / " << den << endl;
+	}
+	Fraction operator+(Fraction b) {
+		return Fraction(this->res + b.res);
+	}
+	Fraction operator-(Fraction b) {
+		return Fraction(this->res - b.res);
+	}
+	Fraction operator*(Fraction b) {
+		return Fraction(this->res * b.res);
+	}
+	Fraction operator/(Fraction b) {
+		return Fraction(this->res / b.res);
+	}
+	Fraction operator-() {
+		return Fraction(-res);
+	}
+    bool operator<(Fraction b) {
+		return this->res < b.res;
+	}
+	bool operator>=(Fraction b) {
+		return this->res < b.res;
+	}
+	bool operator>(Fraction b) {
+		return this->res > b.res;
+	}
+	bool operator<=(Fraction b) {
+		return this->res > b.res;
+	}
 };
-
-
-
-
+/////////////////--4--////////////
+enum Mast { chervy, buby, piky, kresty } mast;
+enum Nominal
+{ tus = 1, dvoyka = 2, troyka, chetverka, pyaterka, shesterka, semerka, vosmerka, devyatka, desyatka, valet = 10, dama = 10, korol = 10 } nominal;
+class Card
+{
+public:
+	Card(Nominal _nom, Mast _mas) : Nom(_nom), Mas(_mas) {}
+	~Card() {}
+	void Flip()	{ View == false ? View = true : View = false; }
+	Nominal GetValue() { return Nom; }
+	
+private:
+	Mast Mas;
+	Nominal Nom;
+	bool View = false;
+};
 //////////////////////////////////
-
 int main()
 {
 	setlocale(LC_ALL, "Rus");
 	Minivan M1("Toyota", "Delica");
 	Bus B1("Ikarus", "Ikar");
 	PassengerCar P1("Volga", "Gas21");
-	return 0;
+//////////
+	Fraction F1(2, 4);
+	Fraction F2(2, 7);
+	F1.show();
+	F2.show();
+	Fraction F3 = F1 + F2;
+	F3.show();
+	if (F1 < F2)
+	{ cout << "Первая дробь меньше второй." << endl; }
+	else { cout << "Первая дробь НЕ меньше второй." << endl; }
 
+	Card C1(troyka, piky);
+	int vol = C1.GetValue();
+	cout << vol << endl;
 }
