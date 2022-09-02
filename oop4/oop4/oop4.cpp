@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <cassert>
+#include <vector>
+#include <iterator>
 using namespace std;
 
 /////////////--1--///////////
@@ -110,7 +112,7 @@ public:
 
 		}
 	}
-	void print()
+	void print() //печатаем
 	{
 		for (size_t i = 0; i < m_lenght; i++)
 		{
@@ -128,10 +130,77 @@ ostream& operator<<(ostream& out, ArrayInt& AI)
 	}
 	return out;
 }
-
+//////////--3--///////////
+enum Mast { chervy, buby, piky, kresty } mast;
+enum Nominal { tus = 1, dvoyka, troyka, chetverka, pyaterka, shesterka, semerka, vosmerka, devyatka, desyatka, valet, dama, korol } nominal;
+class Card
+{
+public:
+	Card(Nominal _nom, Mast _mas) : Nom(_nom), Mas(_mas) { }
+	~Card() {}
+	void Flip() { View == false ? View = true : View = false; }
+	int GetValue() 
+	{
+		int val = 0;
+		val = Nom;
+		if (val > 10)
+		{
+			val = 10;
+		}
+		return val; 
+	}
+private:
+	Mast Mas;
+	Nominal Nom;
+	bool View = false;
+};///
+class Hand
+{
+public:
+	Hand()
+	{
+    	cards.reserve(7);
+	}
+	virtual ~Hand()
+	{
+		Clear();
+	}
+	void Add(Card* _Card)
+	{
+		cards.push_back(_Card);
+	}
+	void Clear()
+	{
+		cards.clear();
+	}
+	int GetTotal()
+	{
+		if (cards.empty())
+		{
+			return 0;
+		}
+		int total = 0;
+		bool isTuz = false;
+		for (size_t i = 0; i < cards.size(); i++)
+		{
+			total += cards[i]->GetValue();
+		}
+		for (size_t i = 0; i < cards.size(); i++)
+		{
+			if (cards[i]->GetValue() == Nominal::tus)
+			{
+				if (total <= 11) total += 10;
+			}
+		}
+		return total;
+	}
+private:
+	vector<Card*> cards;
+};
 ////////////////////////////
 int main()
 {
+	setlocale(LC_ALL, "Rus");
 	ArrayInt Arr(10, 7);
 	cout << Arr << endl;
 	//Arr.clear();
@@ -145,6 +214,31 @@ int main()
 	Arr.print();
 	Arr.sort();
 	Arr.print();
-
+	///////-2-//////////
+	vector<int> V1(10, 11);
+	V1[2] = 1;
+	V1[5] = 5;
+	ArrayInt ArrV1(1, V1[0]);
+	//ArrV1.print();
+	if (V1.size() != 0)
+	{
+		for (size_t i = 1; i < V1.size() - 1; i++)
+		{
+			bool flag = false;
+			for (size_t j = 0; j < ArrV1.size(); j++)
+			{
+				if (V1[i] == ArrV1[j])
+				{
+					flag = true;
+					break;
+				}
+			}
+			if (flag == false)
+			{
+				ArrV1.insert(V1[i], 0);
+			}
+		}
+	}
+	ArrV1.print();
+	cout << "В нашем векторе " << ArrV1.size() << " различных значений." << endl;
 }
-
